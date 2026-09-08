@@ -12,19 +12,15 @@ num2 = float(num2_str)
 
 if operator == "+":
 	result = num1 + num2
+	print(f"Your calculation : {result}")
 elif operator == "-":
 	result = num1 - num2
+	print(f"Your calculation : {result}")
 elif operator == "*":
 	result = num1 * num2
+	print(f"Your calculation : {result}")
 elif operator == "/":
 	result = num1 / num2
+	print(f"Your calculation : {result}")
 else:
 	print("Invalid operator")
-
-print(f"Your calculation : {result}")
-
-
-
-
-
-
