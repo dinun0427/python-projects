@@ -3,10 +3,12 @@
 import random
 
 computer_pick = random.randint(1, 100)
+attempts = 0
 
 while True:
 
 	user_input = int(input("Guess the number (Please enter an integer number between 1 and 100): "))
+	attempts += 1
 
 	if user_input == computer_pick:
 		print("Hooray, You won. Congratulations")
@@ -20,3 +22,5 @@ while True:
 		
 	else:
 		raise ValueError
+
+print(f"You got it in {attempts} attempts!")
