@@ -1,4 +1,4 @@
-# Number Guessing Game 
+# Number Guessing Game
 
 import random
 
@@ -6,21 +6,31 @@ computer_pick = random.randint(1, 100)
 attempts = 0
 
 while True:
+    try:
+        user_input = int(
+            input(
+                "Guess the number (Please enter an integer number between 1 and 100): "
+            )
+        )
 
-	user_input = int(input("Guess the number (Please enter an integer number between 1 and 100): "))
-	attempts += 1
+        if user_input > 100 or user_input < 1:
+            print("Please enter a number between 1 and 100")
+            continue
 
-	if user_input == computer_pick:
-		print("Hooray, You won. Congratulations")
-		break
+        attempts += 1
 
-	elif user_input < computer_pick:
-		print("Too Low. Try again")
-		
-	elif user_input > computer_pick:
-		print("Too High. Try again")
-		
-	else:
-		raise ValueError
+        if user_input == computer_pick:
+            print("Hooray, You won. Congratulations")
+            break
+
+        elif user_input < computer_pick:
+            print("Too Low. Try again")
+
+        elif user_input > computer_pick:
+            print("Too High. Try again")
+
+    except ValueError:
+        print("Invalid Input. Try again")
+
 
 print(f"You got it in {attempts} attempts!")
