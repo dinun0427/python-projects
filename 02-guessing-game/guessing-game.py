@@ -2,18 +2,18 @@
 
 import random
 
-computer_pick = random.randint(1, 100)
 
-
-def get_guess():
+def get_guess(low, high):
     while True:
         try:
             user_input = int(
-                input("Guess the number (Enter an integer number between 1 and 100): ")
+                input(
+                    f"Guess the number (Enter an integer number between {low} and {high}): "
+                )
             )
 
-            if user_input > 100 or user_input < 1:
-                print("Please enter a number between 1 and 100")
+            if user_input > high or user_input < low:
+                print(f"Please enter a number between {low} and {high}")
                 continue
 
             return user_input
@@ -24,31 +24,31 @@ def get_guess():
 
 def check_guess(user_input, computer_pick):
 
-        if user_input == computer_pick:
-            return "Correct"
+    if user_input == computer_pick:
+        return "Correct"
 
-        elif user_input < computer_pick:
-            return "Low"
+    elif user_input < computer_pick:
+        return "Low"
 
-        else:
-            return "High"
+    else:
+        return "High"
 
 
-def play_round():
+def play_round(computer_pick, low, high):
     attempts = 0
-    
+
     while True:
-        guess = get_guess()
+        guess = get_guess(low, high)
         attempts += 1
         result = check_guess(guess, computer_pick)
 
         if result == "Correct":
             print("Hooray, You won. Congratulations")
             break
-        
+
         elif result == "Low":
             print("Too Low. Try again")
-            
+
         elif result == "High":
             print("Too High. Try again")
 
@@ -57,8 +57,45 @@ def play_round():
 
 def main():
     
-    attempts = play_round()
+    while True:
+        while True:
+            try:
+                level = int(
+                    input(
+                        "Pick a Level of Difficulty\nEnter 1 for Easy (1-50)\nEnter 2 for Medium (1-100)\nEnter 3 for Hard (1-500)\n: "
+                    )
+                )
 
-    print(f"You got it in {attempts} attempts!")
-    
+                if level == 1:
+                    low, high = 1, 50
+                    computer_pick = random.randint(low, high)
+                    break
+                elif level == 2:
+                    low, high = 1, 100
+                    computer_pick = random.randint(low, high)
+                    break
+                elif level == 3:
+                    low, high = 1, 500
+                    computer_pick = random.randint(low, high)
+                    break
+                else:
+                    print("Invalid Input. Try again")
+                    continue
+
+            except ValueError:
+                print("Invalid Input. Try again")
+                continue
+
+        attempts = play_round(computer_pick, low, high)
+
+        print(f"You got it in {attempts} attempts!")
+
+
+        play_again = input(
+            "If you want to play again, type 'yes'. If you want to exit, type 'no': "
+        )
+        if play_again.lower() != "yes":
+            break
+
+
 main()
