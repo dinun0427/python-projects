@@ -57,6 +57,8 @@ def play_round(computer_pick, low, high):
 
 def main():
     
+    best_score = None
+    
     while True:
         while True:
             try:
@@ -89,10 +91,15 @@ def main():
         attempts = play_round(computer_pick, low, high)
 
         print(f"You got it in {attempts} attempts!")
-
+        
+        if best_score is None or attempts < best_score:
+            best_score = attempts
+        
+        print(f"Best Score: in {best_score} attempts")
+        
 
         play_again = input(
-            "If you want to play again, type 'yes'. If you want to exit, type 'no': "
+            "If you want to play again, type 'yes': "
         )
         if play_again.lower() != "yes":
             break
