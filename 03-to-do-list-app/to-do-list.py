@@ -12,13 +12,16 @@ while True:
         
         elif user_input == 1:
             add_to_list = input("\nAdd a task to your To-Do-List : ")
-            task_list.append(add_to_list)
+            task_list.append({"text": add_to_list, "done": False})
             print()
 
         elif user_input == 2:
             print()
             for index, item in enumerate(task_list, start=1):
-                print(f"{index}: {item}")
+                if item["done"]:
+                    print(f"[x]: {index}. {item['text']}")
+                else:
+                    print(f"[ ]: {index}. {item['text']}")
             print()
             
         elif user_input == 3:
@@ -42,7 +45,7 @@ while True:
                 try:
                     index = int(input("\nEnter the index you Completed : "))
                     if index <= len(task_list) and index > 0:
-                        task_list[index-1] = "[DONE] " + task_list[index-1]
+                        task_list[index-1]["done"] = True
                         print("Sucessfully Updated.\n")
                         break
                     else:
