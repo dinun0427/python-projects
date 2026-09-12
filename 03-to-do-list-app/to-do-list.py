@@ -1,6 +1,13 @@
 # To-Do-List
 
-task_list = []
+import json
+
+try:
+    with open("03-to-do-list-app/tasks.json", "r") as f:
+        task_list = json.load(f)
+
+except FileNotFoundError:
+    task_list = []
 
 while True:
     try:
@@ -14,6 +21,9 @@ while True:
             add_to_list = input("\nAdd a task to your To-Do-List : ")
             task_list.append({"text": add_to_list, "done": False})
             print()
+            
+            with open("03-to-do-list-app/tasks.json", "w") as f:
+                json.dump(task_list, f)            
 
         elif user_input == 2:
             print()
@@ -34,9 +44,14 @@ while True:
                     if index <= len(task_list) and index > 0:
                         task_list.pop(index-1)
                         print("Sucessfully Deleted.\n")
+                        
+                        with open("03-to-do-list-app/tasks.json", "w") as f:
+                            json.dump(task_list, f)
+                                                
                         break
                     else:
                         print("Enter a valid index.")
+                        
                 except ValueError:
                     print("Enter a valid integer input")
         
@@ -47,11 +62,17 @@ while True:
                     if index <= len(task_list) and index > 0:
                         task_list[index-1]["done"] = True
                         print("Sucessfully Updated.\n")
+                        
+                        with open("03-to-do-list-app/tasks.json", "w") as f:
+                            json.dump(task_list, f)  
+                                                  
                         break
                     else:
                         print("Enter a valid index.")
+                
                 except ValueError:
                     print("Enter a valid integer input") 
                                
     except ValueError:
         print("Error: Please Enter 1,2 or 3\n")
+        
