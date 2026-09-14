@@ -38,7 +38,7 @@ def delete_tasks(tasks):
     while True:
         try:
             index = int(input("\nEnter the index you want to Delete : "))
-            if index <= len(tasks) and index > 0:
+            if is_valid_index(index, tasks):
                 tasks.pop(index-1)
                 print("Sucessfully Deleted.\n")
                             
@@ -55,7 +55,7 @@ def complete_task(tasks):
     while True:
         try:
             index = int(input("\nEnter the index you Completed : "))
-            if index <= len(tasks) and index > 0:
+            if is_valid_index(index, tasks):
                 tasks[index-1]["done"] = True
                 print("Sucessfully Updated.\n")
                             
@@ -67,9 +67,13 @@ def complete_task(tasks):
                     
         except ValueError:
             print("Enter a valid integer input")
+            
+def is_valid_index(index, tasks):
+    return index > 0 and index <= len(tasks)
     
 
 def main():
+    
     task_list = load_tasks()
 
     while True:
@@ -100,5 +104,5 @@ def main():
         except ValueError:
             print("Error: Please Enter 1,2 or 3\n")
         
-
-main()
+if __name__ == "__main__":
+    main()
