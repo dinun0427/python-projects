@@ -16,6 +16,76 @@ def save_contacts(contacts):
         json.dump(contacts, f)
 
 
+def add_contact(contacts):
+    while True:
+        try:
+            name = input("Enter Name: ").strip()
+            if name.isdigit():
+                raise ValueError("Numeric Values are not allowed.")
+            elif not name:
+                raise ValueError("Empty inputs are not allowed.")
+            else:
+                break
+            
+        except ValueError as error:
+            print(f"Error: {error} Please try again.")
+                        
+                
+    while True:
+        try:
+            phone = (input("Enter Phone Number: ")).strip()
+            if not phone:
+                raise ValueError("Empty inputs are not allowed.")        
+            else:
+                break
+                        
+        except ValueError as error:
+            print(f"Error: {error} Please try again.")
+                        
+                    
+    while True:
+        try:
+            email = input("Enter Email: ").strip()                   
+            if not email:
+                raise ValueError("Empty inputs are not allowed.")
+            elif email.isdigit():
+                raise ValueError("Numeric values are not allowed.")
+            elif '@' not in email:
+                raise ValueError("Invalid email '@' is missing.")
+            else:
+                break
+                            
+        except ValueError as error:
+            print(f"Error: {error} Please try again.")
+                
+                
+    new_contact = {"name": name, "phone": phone, "email": email}
+                
+    contacts.append(new_contact)
+                
+    save_contacts(contacts)    
+
+
+
+def delete_contacts(contacts):
+    while True:
+        try:
+            user_delete = int(input("Enter Contact Index You want to DELETE: "))
+            if (user_delete - 1) >= 0 and user_delete <= len(contacts):
+                deleted_item = contacts.pop(user_delete - 1)
+                print(f"You succesfully deleted {deleted_item}")
+                                    
+                save_contacts(contacts)     
+                
+                break
+                            
+            else:
+                print("Enter an existing contact index.")
+                                    
+        except ValueError:
+            print("Invalid Input. Try Again.")
+
+
 def main():
     
     contact_book = load_contacts()
@@ -28,52 +98,8 @@ def main():
                 print("Error: Enter Valid Inputs.")
             
             elif user_input_menu == 1:
-                while True:
-                    try:
-                        name = input("Enter Name: ").strip()
-                        if name.isdigit():
-                            raise ValueError("Numeric Values are not allowed.")
-                        elif not name:
-                            raise ValueError("Empty inputs are not allowed.")
-                        else:
-                            break
-                    except ValueError as error:
-                        print(f"Error: {error} Please try again.")
-                        
                 
-                while True:
-                    try:
-                        phone = (input("Enter Phone Number: ")).strip()
-                        if not phone:
-                            raise ValueError("Empty inputs are not allowed.")        
-                        else:
-                            break
-                        
-                    except ValueError as error:
-                        print(f"Error: {error} Please try again.")
-                        
-                    
-                while True:
-                    try:
-                        email = input("Enter Email: ").strip()                   
-                        if not email:
-                            raise ValueError("Empty inputs are not allowed.")
-                        elif email.isdigit():
-                            raise ValueError("Numeric values are not allowed.")
-                        elif '@' not in email:
-                            raise ValueError("Invalid email '@' is missing.")
-                        else:
-                            break
-                            
-                    except ValueError as error:
-                        print(f"Error: {error} Please try again.")
-                
-                
-                new_contact = {"name": name, "phone": phone, "email": email}
-                
-                contact_book.append(new_contact)
-                
-                save_contacts(contact_book)
+                add_contact(contact_book)
                 
             elif user_input_menu == 2:
                 for index, contact in enumerate(contact_book, start=1):
@@ -93,21 +119,8 @@ def main():
                     print(f"No one named {search} found in contact book")   
                     
             elif user_input_menu == 5:
-                while True:
-                    try:
-                        user_delete = int(input("Enter Contact Index You want to DELETE: "))
-                        if (user_delete - 1) >= 0 and user_delete <= len(contact_book):
-                            deleted_item = contact_book.pop(user_delete - 1)
-                            print(f"You succesfully deleted {deleted_item}")
-                                
-                            save_contacts(contact_book)                       
-                            break
-                        
-                        else:
-                            print("Enter an existing contact index.")
-                                
-                    except ValueError:
-                        print("Invalid Input. Try Again.")
+                
+                delete_contacts(contact_book)
                         
             
             elif user_input_menu == 6:
